@@ -5,24 +5,12 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Getter;
-import lombok.Setter;
 
 @Entity
-public class Usuario {
+public class Mensagem {
 	
 	@Id
 	@Getter
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
-	@Getter @Setter
-	private String matricula;
-	@Getter @Setter
-	private String senha;
-	@Getter @Setter
-	private String email;
-	@Getter @Setter
-	private String token;
-	
-	
 }
