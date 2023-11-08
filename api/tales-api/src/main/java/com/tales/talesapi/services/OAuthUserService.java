@@ -17,13 +17,13 @@ import com.tales.talesapi.repositories.UsuarioRepository;
 import com.tales.talesapi.security.BearerTokenWrapper;
 
 @Service
-public class AuthUserService {
+public class OAuthUserService {
 
 	@Autowired
 	private UsuarioRepository userRepo;
 	
-	@Autowired
-	public BearerTokenWrapper bearerToken;
+//	@Autowired
+//	public BearerTokenWrapper bearerToken;
 	
 	@Autowired
 	public TalesDocumentationConfig appProp;
@@ -36,20 +36,20 @@ public class AuthUserService {
 		return validIssuer && validClientSecret ? decoded : null;
 	}
 	
-	public GoogleCredentials getGoogleCredencial() {
-		DecodedJWT valid = validateIssuerToken(bearerToken.getToken());
-		
-		if(valid == null) {
-			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
-		}
-		return GoogleCredentialMapper.toValueObject(valid);
-	}
-	
-	public Optional<Usuario> getUserLoggedIn(){
-		GoogleCredentials credentials = getGoogleCredencial();
-		
-		return userRepo.findByEmail(credentials.getEmail());
-	}
+//	public GoogleCredentials getGoogleCredencial() {
+//		DecodedJWT valid = validateIssuerToken(bearerToken.getToken());
+//		
+//		if(valid == null) {
+//			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+//		}
+//		return GoogleCredentialMapper.toValueObject(valid);
+//	}
+//	
+//	public Optional<Usuario> getUserLoggedIn(){
+//		GoogleCredentials credentials = getGoogleCredencial();
+//		
+//		return userRepo.findByEmail(credentials.getEmail());
+//	}
 	
 	
 	
