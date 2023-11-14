@@ -14,12 +14,12 @@ public class TokenService {
 
 	public String gerarToken(Usuario user) {
 		return JWT.create()
-				.withIssuer("Produtos")
+				.withIssuer("Usuario")
 				.withSubject(user.getUsername())
 				.withClaim("id", user.getId())
 				.withExpiresAt(LocalDateTime.now()
 								.plusMinutes(10)
-								.toInstant(ZoneOffset.of("-3:00"))
+								.toInstant(ZoneOffset.of("-03:00"))
 				).sign(Algorithm.HMAC256("secreta"));
 	}
 

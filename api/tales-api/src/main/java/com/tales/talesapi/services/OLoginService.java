@@ -5,11 +5,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.tales.talesapi.controller.request.SimpleUserResponse;
 import com.tales.talesapi.entities.Usuario;
 import com.tales.talesapi.entities.valueobjects.GoogleCredentials;
 import com.tales.talesapi.mappers.GoogleCredentialMapper;
-import com.tales.talesapi.mappers.UserMapper;
 import com.tales.talesapi.repositories.UsuarioRepository;
 
 @Service
