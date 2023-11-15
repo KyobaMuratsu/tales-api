@@ -61,9 +61,6 @@ public class WebConfig implements WebMvcConfigurer {
     									sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
     							).authorizeHttpRequests(authzH -> authzH
     									.requestMatchers("/**").permitAll()
-    									.requestMatchers("/index/**").permitAll()
-    									.requestMatchers("/login/**").permitAll() 	
-    									.requestMatchers("/register/**").permitAll()
     									.requestMatchers(HttpMethod.POST, "register/save").permitAll()
     									.requestMatchers(HttpMethod.GET, "/swagger-ui/**").permitAll()
     									.requestMatchers(HttpMethod.GET, "/users").permitAll()
