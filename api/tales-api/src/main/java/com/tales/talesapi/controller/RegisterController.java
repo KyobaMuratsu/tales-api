@@ -3,6 +3,7 @@ package com.tales.talesapi.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,6 +14,7 @@ import com.tales.talesapi.dto.UserDto;
 import com.tales.talesapi.entities.Usuario;
 import com.tales.talesapi.repositories.UserService;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api")
 public class RegisterController {
@@ -38,13 +40,6 @@ public class RegisterController {
         // Check if password is provided
         if (userDto.getSenha() == null || userDto.getSenha().isEmpty()) {
             result.rejectValue("senha", null, "Password cannot be null or empty");
-        }
-
-        Usuario existingUser = userService.findUserByEmail(userDto.getEmail());
-
-        if(existingUser != null && existingUser.getEmail() != null && !existingUser.getEmail().isEmpty()){
-            result.rejectValue("email", null,
-                    "There is already an account registered with the same email");
         }
 
         if(result.hasErrors()){

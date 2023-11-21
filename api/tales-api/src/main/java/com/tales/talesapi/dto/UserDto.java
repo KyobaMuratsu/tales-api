@@ -11,10 +11,9 @@ import lombok.Setter;
 @Setter
 @Data
 public class UserDto {
-	
-	private String nome;
+
 	private String matricula;
 	private String senha;
-	private String email;
+
 	
 }

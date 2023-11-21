@@ -32,8 +32,6 @@ public class UserServiceImpl implements UserService {
     @JsonProperty
     public void saveUser(UserDto userDto) {
         Usuario user = new Usuario();
-        user.setNome(userDto.getNome());
-        user.setEmail(userDto.getEmail());
         user.setMatricula(userDto.getMatricula());
         // encrypt the password using spring security
         user.setSenha(passwordEncoder.encode(userDto.getSenha()));
