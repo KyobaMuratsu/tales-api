@@ -1,5 +1,6 @@
 package com.tales.talesapi.services;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
@@ -21,23 +22,32 @@ import io.jsonwebtoken.UnsupportedJwtException;
 public class TokenService {
 	
 	private static final Logger logger = LoggerFactory.getLogger(TokenService.class);
-	
+	private String secret = "tales";
+	private Instant dataExpiracao = LocalDateTime.now()
+			.plusMinutes(1)
+			.toInstant(ZoneOffset.of("-03:00"));
 	
 	public String gerarToken(Usuario user) {
+		var algoritimo = Algorithm.HMAC256(secret);
 		return JWT.create()
 				.withIssuer("Usuario")
 				.withSubject(user.getUsername())
 				.withClaim("id", user.getId())
-				.withExpiresAt(LocalDateTime.now()
-								.plusMinutes(1)
-								.toInstant(ZoneOffset.of("-03:00"))
-				).sign(Algorithm.HMAC256("secreta"));
+				.withExpiresAt(dataExpiracao)
+				.sign(algoritimo);
 	}
 	
-	 public boolean validateJwtToken(String authToken) {
+	
+	
+	public boolean validateJwtToken(String authToken) {
 		    try {
-		      Jwts.parserBuilder().build().parse(authToken);
+		    var algoritimo = Algorithm.HMAC256(secret);
+		      JWT.require(algoritimo)
+		      	.withIssuer("Usuario")
+		      	.build()
+		      	.verify(authToken);
 		      return true;
+		      
 		    } catch (MalformedJwtException e) {
 		      logger.error("Invalid JWT token: {}", e.getMessage());
 		    } catch (ExpiredJwtException e) {

@@ -35,7 +35,7 @@ public class AuthController {
 	private AuthenticationManager authManager;
 	
 	@Autowired
-	private TokenService token;
+	private TokenService tokenService;
 
 	@PostMapping("/login")
 	public List<String> login(@RequestBody LoginDto login) {
@@ -48,7 +48,7 @@ public class AuthController {
 		var user = (Usuario) auth.getPrincipal();
 		
 		TokenDto dto = new TokenDto();
-		dto.setToken(token.gerarToken(user));
+		dto.setToken(tokenService.gerarToken(user));
 		
 		TokenAndUser.add(dto.getToken());
 		TokenAndUser.add(login.getLogin());
@@ -57,36 +57,8 @@ public class AuthController {
 	}
 
     // handler method to handle list of users
-    @GetMapping("/check-token")
-    public String checkToken(HttpServletRequest request){
-        String authorization = request.getHeader("Accept");
-        return authorization;
-//        if(authorization.isEmpty()) {
-//        	return "401";
-//        }
-//        
-//        if(authorization.split(" ")[0] != "Bearer") {
-//        	return "500";
-//        }
-//        
-//    	String lettoken = authorization.split(" ")[1];
-//    	String status = "false";
-//    	
-//    	if(!lettoken.isEmpty()) {
-//    		try {
-//				boolean tokenVerified = token.validateJwtToken(lettoken);
-//				if(tokenVerified) {
-//					status = "true";
-//					return status;
-//				}else
-//					status = "false";
-//					return status;
-//			} catch (Exception e) {
-//				System.out.println(e);
-//			}
-//    	}
-//    	
-//		return status;
-        
+    @GetMapping("/refresh")
+    public boolean refreshToken(HttpServletRequest request){
+    	return tokenService.validateJwtToken(request.getHeader("Authorization"));
     }
 }
