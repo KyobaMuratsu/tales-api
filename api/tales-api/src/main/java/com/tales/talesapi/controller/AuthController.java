@@ -57,8 +57,11 @@ public class AuthController {
 	}
 
     // handler method to handle list of users
+	@CrossOrigin
     @GetMapping("/refresh")
     public boolean refreshToken(HttpServletRequest request){
-    	return tokenService.validateJwtToken(request.getHeader("Authorization"));
+		String[] tokenSplit = request.getHeader("Authorization").split(",");
+		String token = tokenSplit[0];
+    	return tokenService.validateJwtToken(token);
     }
 }
