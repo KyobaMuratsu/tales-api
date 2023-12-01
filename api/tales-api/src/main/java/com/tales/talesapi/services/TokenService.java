@@ -24,7 +24,7 @@ public class TokenService {
 	private static final Logger logger = LoggerFactory.getLogger(TokenService.class);
 	private String secret = "tales";
 	private Instant dataExpiracao = LocalDateTime.now()
-			.plusMinutes(1)
+			.plusHours(5)
 			.toInstant(ZoneOffset.of("-03:00"));
 	
 	public String gerarToken(Usuario user) {
