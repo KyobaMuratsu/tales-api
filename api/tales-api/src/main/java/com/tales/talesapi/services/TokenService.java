@@ -23,11 +23,11 @@ public class TokenService {
 	
 	private static final Logger logger = LoggerFactory.getLogger(TokenService.class);
 	private String secret = "tales";
-	private Instant dataExpiracao = LocalDateTime.now()
-			.plusHours(5)
-			.toInstant(ZoneOffset.of("-03:00"));
 	
 	public String gerarToken(Usuario user) {
+		Instant dataExpiracao = LocalDateTime.now()
+				.plusHours(5)
+				.toInstant(ZoneOffset.of("-03:00"));
 		var algoritimo = Algorithm.HMAC256(secret);
 		return JWT.create()
 				.withIssuer("Usuario")

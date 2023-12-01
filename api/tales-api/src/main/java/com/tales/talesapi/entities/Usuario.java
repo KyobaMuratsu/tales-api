@@ -9,6 +9,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -59,8 +60,10 @@ public class Usuario implements UserDetails {
 	
 	private LocalDateTime criadoEm;
 	
-//	@OneToMany(mappedBy = "postagens", fetch = FetchType.LAZY)
-//	private Set<Postagens> postagens;
+	
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario", fetch = FetchType.LAZY)
+	private List<Postagens> postagens;
 
 	//Rever
 	@ManyToOne
@@ -106,6 +109,20 @@ public class Usuario implements UserDetails {
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
 		return true;
+	}
+
+	public Usuario(String matricula, String email, String senha, String nome, String curso, String picUrl,
+			String biografia, LocalDateTime dataEntrada, LocalDateTime dataNascimento) {
+		super();
+		this.matricula = matricula;
+		this.email = email;
+		this.senha = senha;
+		this.nome = nome;
+		this.curso = curso;
+		this.picUrl = picUrl;
+		this.biografia = biografia;
+		this.dataEntrada = dataEntrada;
+		this.dataNascimento = dataNascimento;
 	}
 	
 	

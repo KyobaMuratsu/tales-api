@@ -3,6 +3,7 @@ package com.tales.talesapi.entities;
 import java.time.LocalDateTime;
 import java.util.Set;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -36,8 +37,15 @@ public class Postagens {
 	
 	private LocalDateTime criadoEm;
 	
+	public Postagens(String textoPostagem, String imagemUrlPostagem, LocalDateTime criadoEm) {
+		super();
+		this.textoPostagem = textoPostagem;
+		this.imagemUrlPostagem = imagemUrlPostagem;
+		this.criadoEm = criadoEm;
+	}
+
 	//Rever
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "usuario_id")
 	private Usuario usuario;
 	
