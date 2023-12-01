@@ -1,5 +1,7 @@
 package com.tales.talesapi.dto;
 
+import java.time.LocalDateTime;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.tales.talesapi.entities.Usuario;
 
@@ -14,6 +16,7 @@ public class UserDto {
 
 	private String matricula;
 	private String senha;
+	private LocalDateTime criadoEm;
 
 	
 }

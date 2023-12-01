@@ -46,6 +46,7 @@ public class TokenService {
 		      	.withIssuer("Usuario")
 		      	.build()
 		      	.verify(authToken);
+		      
 		      return true;
 		      
 		    } catch (MalformedJwtException e) {

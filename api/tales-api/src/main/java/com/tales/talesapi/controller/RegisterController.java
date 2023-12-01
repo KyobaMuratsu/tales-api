@@ -47,10 +47,8 @@ public class RegisterController {
             return "/register";
         }
 
-        
         userService.saveUser(userDto);
-        
-        
+           
         return "redirect:/register?success";
     }
 

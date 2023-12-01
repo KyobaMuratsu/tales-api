@@ -60,8 +60,14 @@ public class AuthController {
 	@CrossOrigin
     @GetMapping("/refresh")
     public boolean refreshToken(HttpServletRequest request){
+<<<<<<< HEAD
         String[] tokenSplit = request.getHeader("Authorization").split(",");
         String token = tokenSplit[0];
         return tokenService.validateJwtToken(token);
+=======
+		String[] tokenSplit = request.getHeader("Authorization").split(",");
+		String token = tokenSplit[0];
+    	return tokenService.validateJwtToken(token);
+>>>>>>> 4ac71bd772b3cd42cba9ccd44e447fa3946c6edc
     }
 }

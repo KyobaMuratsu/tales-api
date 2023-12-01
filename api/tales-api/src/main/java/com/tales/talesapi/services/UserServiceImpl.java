@@ -1,5 +1,6 @@
 package com.tales.talesapi.services;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,6 +36,7 @@ public class UserServiceImpl implements UserService {
         user.setMatricula(userDto.getMatricula());
         // encrypt the password using spring security
         user.setSenha(passwordEncoder.encode(userDto.getSenha()));
+        user.setCriadoEm(LocalDateTime.now());
 
 //        Role role = roleRepository.findByName("ROLE_ADMIN");
 //        if(role == null){
