@@ -1,10 +1,14 @@
 package com.tales.talesapi.entities;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,13 +26,15 @@ public class Tag {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Long id;
 	
 	private String nome;
 	
 	//Rever
-//	@ManyToOne
-//	@JoinColumn(name = "postagens_id")
-//	private Postagens postagens;
+	@ManyToMany(mappedBy = "tags")
+	private Set<Usuario> usuario = new HashSet<>();
+	
+	@ManyToMany(mappedBy = "tags")
+	private Set<Postagens> post = new HashSet<>();
 	
 }
