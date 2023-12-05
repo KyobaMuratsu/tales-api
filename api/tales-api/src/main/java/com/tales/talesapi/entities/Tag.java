@@ -3,6 +3,7 @@ package com.tales.talesapi.entities;
 import java.util.HashSet;
 import java.util.Set;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -28,6 +29,7 @@ public class Tag {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@Column(length = 6)
 	private String nome;
 	
 	//Rever
@@ -36,5 +38,6 @@ public class Tag {
 	
 	@ManyToMany(mappedBy = "tags")
 	private Set<Postagens> post = new HashSet<>();
+	
 	
 }

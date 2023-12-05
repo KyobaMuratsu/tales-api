@@ -44,26 +44,15 @@ public class Usuario implements UserDetails {
 	@Column(unique = true)
 	private String matricula;
 	
-	private String email;
-	
 	private String senha;
 	
 	private String nome;
 	
-	//Enum provavelmente
-	private String curso;
+	private String email;
 	
 	private String picUrl;
-	
-	private String biografia;
-	
-	private LocalDateTime dataEntrada;
-	
-	private LocalDateTime dataNascimento;
-	
+
 	private LocalDateTime criadoEm;
-	
-	
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario", fetch = FetchType.LAZY)
 	private List<Postagens> postagens;
@@ -77,6 +66,15 @@ public class Usuario implements UserDetails {
 			)
 	private Set<Tag> tags = new HashSet<>();
 	
+    public void addTag(Tag tag) {
+        this.tags.add(tag);
+        tag.getUsuario().add(this);
+    }
+
+    public void removeTag(Tag tag) {
+        this.tags.remove(tag);
+        tag.getUsuario().remove(this);
+    }
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -119,18 +117,13 @@ public class Usuario implements UserDetails {
 		return true;
 	}
 
-	public Usuario(String matricula, String email, String senha, String nome, String curso, String picUrl,
-			String biografia, LocalDateTime dataEntrada, LocalDateTime dataNascimento) {
+	public Usuario(String matricula, String email, String senha, String nome, String picUrl) {
 		super();
 		this.matricula = matricula;
 		this.email = email;
 		this.senha = senha;
 		this.nome = nome;
-		this.curso = curso;
 		this.picUrl = picUrl;
-		this.biografia = biografia;
-		this.dataEntrada = dataEntrada;
-		this.dataNascimento = dataNascimento;
 	}
 	
 	

@@ -60,6 +60,17 @@ public class Postagens {
 			)
 	private Set<Tag> tags = new HashSet<>();
 	
+    public void addTag(Tag tag) {
+        this.tags.add(tag);
+        tag.getPost().add(this);
+    }
+
+    public void removeTag(Tag tag) {
+        this.tags.remove(tag);
+        tag.getPost().remove(this);
+    }
+	
+	
 	@OneToOne
 	private Notificacao notificacao;
 	

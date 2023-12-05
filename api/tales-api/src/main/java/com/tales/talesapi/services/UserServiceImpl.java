@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.tales.talesapi.dto.PostagemDto;
 import com.tales.talesapi.dto.UserDto;
 import com.tales.talesapi.entities.Postagens;
+import com.tales.talesapi.entities.Tag;
 import com.tales.talesapi.entities.Usuario;
+import com.tales.talesapi.repositories.TagRepository;
 import com.tales.talesapi.repositories.UserService;
 import com.tales.talesapi.repositories.UsuarioRepository;
 
@@ -29,6 +32,9 @@ public class UserServiceImpl implements UserService {
 	@Autowired
     private UsuarioRepository userRepository;
 //    private RoleRepository roleRepository;
+	
+	@Autowired
+	private TagRepository tagRepo;
 	
     private PasswordEncoder passwordEncoder;
     
@@ -86,22 +92,65 @@ public class UserServiceImpl implements UserService {
         return filePath.toString();
     }
 
+    @Override
+    public void savePostagem(String usuarioId, PostagemDto postagemDto, MultipartFile imagem, List<String> tags) throws IOException {
+        Usuario usuario = userRepository.findByMatricula(usuarioId);
+
+        if (usuario == null) {
+            System.out.println("Usuário não encontrado com ID: " + usuarioId);
+            return;
+        }
+
+        String imagemUrl = saveImagem(imagem);
+
+        Postagens postagem = new Postagens(postagemDto.getTextoPostagem(), imagemUrl, LocalDateTime.now());
+        postagem.setUsuario(usuario);
+
+        for (String tagName : tags) {
+            Tag tag = tagRepo.findByNome(tagName);
+
+            if (tag != null) {
+                postagem.addTag(tag);
+            } else {
+                System.out.println("Tag não encontrada com nome: " + tagName);
+            }
+        }
+
+        usuario.getPostagens().add(postagem);
+        userRepository.save(usuario);
+    }
+
 	@Override
-	public void savePostagem(String usuarioId, PostagemDto postagemDto, MultipartFile imagem) throws IOException {
-	       Usuario usuario = userRepository.findByMatricula(usuarioId);
+	public void updateUser(String matricula, MultipartFile picUrl, String nome, String email, List<String> tags) throws IOException {
+	    Usuario user = userRepository.findByMatricula(matricula);
 
-	        // Lide com a imagem aqui, salve-a no sistema de arquivos ou em um serviço de armazenamento em nuvem, etc.
-	        String imagemUrl = saveImagem(imagem);
+	    if (user == null) {
+	        System.out.println("Usuário não encontrado com matrícula: " + matricula);
+	        return;
+	    }
 
-	        // Crie a postagem
-	        Postagens postagem = new Postagens(postagemDto.getTextoPostagem(), imagemUrl, LocalDateTime.now());
-	        postagem.setUsuario(usuario);
+	    String imagemUrl = saveImagem(picUrl);
 
-	        // Adicione a postagem ao usuário e salve no banco de dados
-	        usuario.getPostagens().add(postagem);
-	        userRepository.save(usuario);
-		
+	    user.setPicUrl(imagemUrl);
+	    user.setNome(nome);
+	    user.setEmail(email);
+
+	    user.getTags().clear();
+
+	    for (String tagName : tags) {
+	        Tag tag = tagRepo.findByNome(tagName);
+
+	        if (tag != null) {
+	            user.addTag(tag);
+	        } else {
+	            System.out.println("Tag não encontrada com nome: " + tagName);
+	        }
+	    }
+
+	    userRepository.save(user);
 	}
+
+		
 
 //    private Usuario mapToUserDto(Usuario user){
 //        Usuario userDto = new Usuario();

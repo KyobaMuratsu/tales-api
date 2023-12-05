@@ -28,7 +28,9 @@ public class TokenService {
 		Instant dataExpiracao = LocalDateTime.now()
 				.plusHours(5)
 				.toInstant(ZoneOffset.of("-03:00"));
+		
 		var algoritimo = Algorithm.HMAC256(secret);
+		
 		return JWT.create()
 				.withIssuer("Usuario")
 				.withSubject(user.getUsername())
