@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import io.swagger.v3.oas.models.ExternalDocumentation;
@@ -29,13 +30,13 @@ public class WebConfig implements WebMvcConfigurer {
 	private UserDetailsService userDetailsService;
 	
 	
-//    @Override
-//    public void addCorsMappings(CorsRegistry registry) {
-//      registry.addMapping("/**")
-//      			.allowedHeaders("*")
-//      			.allowedMethods("*")
-//      			.allowedOrigins("*");
-//    }
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+      registry.addMapping("/**")
+      			.allowedHeaders("*")
+      			.allowedMethods("*")
+      			.allowedOrigins("*");
+    }
     
 //    @Override
 //    public void addInterceptors(InterceptorRegistry registry) {
@@ -63,6 +64,7 @@ public class WebConfig implements WebMvcConfigurer {
     									.requestMatchers("/**").permitAll()
     									.requestMatchers(HttpMethod.POST, "register/save").permitAll()
     									.requestMatchers(HttpMethod.GET, "/swagger-ui/**").permitAll()
+    									.requestMatchers( "/api/auth/refresh").permitAll()
     									.requestMatchers(HttpMethod.GET, "/users").permitAll()
     							).build();
     }

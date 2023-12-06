@@ -1,6 +1,10 @@
 package com.tales.talesapi.dto;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.tales.talesapi.entities.Postagens;
 import com.tales.talesapi.entities.Usuario;
 
 import lombok.Data;
@@ -11,10 +15,11 @@ import lombok.Setter;
 @Setter
 @Data
 public class UserDto {
-	
-	private String nome;
+
 	private String matricula;
 	private String senha;
-	private String email;
+	private LocalDateTime criadoEm;
+	private List<Postagens> postagens;
+
 	
 }
