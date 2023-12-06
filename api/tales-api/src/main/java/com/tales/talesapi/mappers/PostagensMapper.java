@@ -9,6 +9,9 @@ public class PostagensMapper {
 		return PostagensDto.builder()
 				.textoPostagem(post.getTextoPostagem())
 				.imagemUrlPostagem(post.getImagemUrlPostagem())
+				.Usuarioid(post.getUsuario().getId())
+				.picUrl(post.getUsuario().getPicUrl())
+				.userName(post.getUsuario().getNome())
 				.build();
 	}
 	

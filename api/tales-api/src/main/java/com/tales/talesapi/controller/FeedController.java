@@ -43,12 +43,6 @@ public class FeedController {
     private PostagemService postService;
 
     @Autowired
-    private TagService tagService;
-    
-    @Autowired
-    private FeedService feedService;
-
-    @Autowired
     private UserService usuarioService;  // Injete o serviço do usuário
     
     @Autowired
@@ -66,9 +60,6 @@ public class FeedController {
         Set<Tag> tagsUser = usuarioService.getTagByUserId(user.getMatricula());
 
        List<Postagens> postagens = postService.getPostsByTags(tagsUser);
-       for(Tag post : tagsUser) {
-           System.out.println(post.getNome());
-       }
             
        List<PostagensDto> postDto = postagens.stream().map(PostagensMapper::toDto).toList();
        return ResponseEntity.ok(postDto);

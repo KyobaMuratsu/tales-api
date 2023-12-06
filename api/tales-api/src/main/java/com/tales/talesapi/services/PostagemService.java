@@ -31,7 +31,7 @@ public class PostagemService {
 	    List<Postagens> postsWithTags = postRepo.findByTagsIn(tags);
 	    
 	    for(Postagens post : postsWithTags) {
-	    	System.out.println(post.getTextoPostagem());
+	    	System.out.println(post.getUsuario().getId());
 	    }
 	    
 	    try {
