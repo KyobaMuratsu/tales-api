@@ -1,6 +1,7 @@
 package com.tales.talesapi.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -34,7 +35,7 @@ public class RegisterController {
 
     // handler method to handle user registration form submit request
     @PostMapping("/register/save")
-    public String registration(@RequestBody UserDto userDto,
+    public ResponseEntity<String> registration(@RequestBody UserDto userDto,
                                 Model model,
                                 BindingResult result) {
         // Check if password is provided
@@ -44,12 +45,12 @@ public class RegisterController {
 
         if(result.hasErrors()){
             model.addAttribute("user", userDto);
-            return "/register";
+            return ResponseEntity.badRequest().body("Registro falho");
         }
 
         userService.saveUser(userDto);
            
-        return "redirect:/register?success";
+        return ResponseEntity.ok("Registro com sucesso");
     }
 
 }

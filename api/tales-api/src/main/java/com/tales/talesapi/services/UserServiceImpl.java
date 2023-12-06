@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
 	
     private PasswordEncoder passwordEncoder;
     
-    private final String uploadDirectory = "C:\\Users\\bruno\\OneDrive\\Área de Trabalho\\tales-app\\tales-app\\public\\Imagens";
+    private final String uploadDirectory = "C:\\Users\\bruno\\OneDrive\\Documentos\\projeto\\tales-app\\public\\Imagens";
 
     public UserServiceImpl(UsuarioRepository userRepository,
                            PasswordEncoder passwordEncoder) {
