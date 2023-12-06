@@ -5,7 +5,7 @@ Quando configurar para uso esta deve ser a primeira
 
 - No Mysql
 - Use o arquivo posto na pasta banco de dados
-- Use o para criar o Database e por as TAGS no database
+- Use o para criar o Database tales e por as TAGS no database
 
 - No spring Tools
 - Deve se configurar o application.properties como configurado o seu banco de dados SQL
