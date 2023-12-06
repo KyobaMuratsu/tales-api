@@ -5,6 +5,7 @@ import com.tales.talesapi.entities.Usuario;
 import com.tales.talesapi.entities.valueobjects.GoogleCredentials;
 
 public class GoogleCredentialMapper {
+	
 	public static GoogleCredentials toValueObject(DecodedJWT jwt) {
 		return GoogleCredentials.builder()
 			.name(jwt.getClaim("name").asString())

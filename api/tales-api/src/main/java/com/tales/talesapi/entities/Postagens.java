@@ -21,6 +21,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import net.minidev.json.annotate.JsonIgnore;
 
 @Getter
 @Setter
@@ -47,15 +48,14 @@ public class Postagens {
 		this.criadoEm = criadoEm;
 	}
 
-	//Rever
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "usuario_id")
 	private Usuario usuario;
 	
 	@ManyToMany
 	@JoinTable(
-			name = "publicacao_tags",
-			joinColumns = @JoinColumn(name = "publicacao_id"),
+			name = "postagens_tags",
+			joinColumns = @JoinColumn(name = "postagens_id"),
 			inverseJoinColumns = @JoinColumn(name = "tag_id")
 			)
 	private Set<Tag> tags = new HashSet<>();

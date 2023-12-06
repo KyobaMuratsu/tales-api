@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -38,7 +39,7 @@ public class UserServiceImpl implements UserService {
 	
     private PasswordEncoder passwordEncoder;
     
-    private final String uploadDirectory = "C:/Users/bruno/OneDrive/Área de Trabalho/Projeto/tales-api/banco-de-dados/imagens/";
+    private final String uploadDirectory = "C:\\Users\\bruno\\OneDrive\\Área de Trabalho\\tales-app\\tales-app\\public\\Imagens";
 
     public UserServiceImpl(UsuarioRepository userRepository,
                            PasswordEncoder passwordEncoder) {
@@ -150,7 +151,19 @@ public class UserServiceImpl implements UserService {
 	    userRepository.save(user);
 	}
 
-		
+    public Set<Tag> getTagByUserId(String userId) {
+        Usuario usuario = userRepository.findByMatricula(userId);
+
+        if (usuario != null) {
+            Set<Tag> tags = usuario.getTags();
+            return tags;
+        }
+
+        return Collections.emptySet(); // Retorna um conjunto vazio se o usuário não for encontrado
+    }
+	
+	
+	
 
 //    private Usuario mapToUserDto(Usuario user){
 //        Usuario userDto = new Usuario();
