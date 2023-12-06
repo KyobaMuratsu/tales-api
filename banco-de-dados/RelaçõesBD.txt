@@ -1,7 +1,0 @@
-Usuario:
-	- Publicações(ManyToOne)
-	- Comentario(ManyToMany)
-	- Notificações(ManyToMany)
-	- Tag (ManyToMany)
-	- Mensagem (Futuro)
-
