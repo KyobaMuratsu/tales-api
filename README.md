@@ -1,6 +1,5 @@
 # tales-api
 Quando configurar para uso esta deve ser a primeira
-Parte dedicada para uso do sping tools do tales
 
 # Configurações
 
